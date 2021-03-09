@@ -58,9 +58,10 @@ var map = new L.Map("map", {
 var coromandelBaseStyle = {
     fillColor: "#cc3366",
     weight: 0.5,
+    border: "2px dashed black",
     opacity: 1,
     color: '#dddddd',
-    fillOpacity: 0.7
+    fillOpacity: 0.2
   }
 
 var urlCoromandel = 'https://xycarto.github.io/bayley_test/geoJSON/coromandel.geojson';
