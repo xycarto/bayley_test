@@ -66,26 +66,20 @@ var coromandelBaseStyle = {
 var urlCoromandel = 'https://xycarto.github.io/bayley_test/geoJSON/coromandel.geojson';
 
 function createOverlayCoro(data, layerName, coromandelBaseStyle) {
-    var overlayA = L.geoJson(data, coromandelBaseStyle,{
+    var overlayA = L.Proj.geoJson(data, coromandelBaseStyle,{
       onEachFeature: function (feature, layer) {
         return _layers._leaflet_id; 
       }
-    });// Add the data to the map
-    overlayControl.addOverlay(overlayA, layerName, settingsControl); // Add the layer to the Layer Control.
-
-    var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
-    //Load Available Now JSON into map
-    $.getJSON(urlCoromandel, function (data) { 
-        createOverlayCoro(data, legenditemA, coromandelBaseStyle)
-        })
-  };
-
-  var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
-  $.getJSON(urlCoromandel, function (data) { 
-    createOverlayCoro(data, legenditemA, coromandelBaseStyle)
     });
+    // Add the data to the map
+    overlayControl.addOverlay(overlayA, layerName, settingsControl) // Add the layer to the Layer Control.
 
-
+    //var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
+    //Load Available Now JSON into map
+    //$.getJSON(urlCoromandel, function (data) { 
+       //createOverlayCoro(data, legenditemA, coromandelBaseStyle)
+        //})
+    };
 
 //set
 var topoMap = new L.TileLayer(topoMap_urlTemplate, settings);
@@ -104,8 +98,9 @@ var settingsControl = {
     collapsed: true
 };
 
-var overlayControl = L.control.layers(basemap, null, settingsControl).addTo(map)
-overlayControl.addTo(map);
+var overlayControl = L.control.layers(basemap, labels, settingsControl).addTo(map);
+//overlayControl.addTo(map);
+
 
 //build map
 map.addLayer(topoMap);
@@ -113,3 +108,7 @@ map.addLayer(topoMap);
 //set opening view
 map.setView([-41.29, 175.4], 6);
 
+var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
+$.getJSON(urlCoromandel, function (data) { 
+    createOverlayCoro(data, legenditemA, coromandelBaseStyle)
+        });
