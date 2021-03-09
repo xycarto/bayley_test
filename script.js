@@ -53,6 +53,35 @@ var map = new L.Map("map", {
   zoomControl: false
 });
 
+
+//geoJSON
+var coromandelBaseStyle = {
+    fillColor: "#cc3366",
+    weight: 0.5,
+    opacity: 1,
+    color: '#dddddd',
+    fillOpacity: 0.7
+  }
+
+var urlCoromandel = 'https://xycarto.github.io/bayley_test/coromandel.geojson';
+
+function createOverlayCoro(data, layerName, coromandelBaseStyle) {
+    var overlayA = L.geoJson(data, coromandelBaseStyle,{
+      onEachFeature: function (feature, layer) {
+        return _layers._leaflet_id; 
+      }
+    });// Add the data to the map
+    control.addOverlay(overlayA, layerName, settingsControl); // Add the layer to the Layer Control.
+
+var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
+  //Load Available Now JSON into map
+  $.getJSON(urlCoromandel, function (data) { 
+    createOverlayA(data, legenditemA, coromandelBaseStyle)
+    })
+  };
+
+
+
 //set
 var topoMap = new L.TileLayer(topoMap_urlTemplate, settings);
 
