@@ -108,6 +108,7 @@ map.addLayer(topoMap);
 //set opening view
 map.setView([-41.29, 175.4], 6);
 
+//load and add json
 var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
 $.getJSON(urlCoromandel, function (data) { 
     createOverlayCoro(data, legenditemA, coromandelBaseStyle)
