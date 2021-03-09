@@ -63,7 +63,7 @@ var coromandelBaseStyle = {
     fillOpacity: 0.7
   }
 
-var urlCoromandel = 'https://xycarto.github.io/bayley_test/coromandel.geojson';
+var urlCoromandel = 'https://xycarto.github.io/bayley_test/geoJSON/coromandel.geojson';
 
 function createOverlayCoro(data, layerName, coromandelBaseStyle) {
     var overlayA = L.geoJson(data, coromandelBaseStyle,{
@@ -71,14 +71,19 @@ function createOverlayCoro(data, layerName, coromandelBaseStyle) {
         return _layers._leaflet_id; 
       }
     });// Add the data to the map
-    control.addOverlay(overlayA, layerName, settingsControl); // Add the layer to the Layer Control.
+    overlayControl.addOverlay(overlayA, layerName, settingsControl); // Add the layer to the Layer Control.
 
-var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
-  //Load Available Now JSON into map
-  $.getJSON(urlCoromandel, function (data) { 
-    createOverlayA(data, legenditemA, coromandelBaseStyle)
-    })
+    var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
+    //Load Available Now JSON into map
+    $.getJSON(urlCoromandel, function (data) { 
+        createOverlayCoro(data, legenditemA, coromandelBaseStyle)
+        })
   };
+
+  var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
+  $.getJSON(urlCoromandel, function (data) { 
+    createOverlayCoro(data, legenditemA, coromandelBaseStyle)
+    });
 
 
 
@@ -99,12 +104,11 @@ var settingsControl = {
     collapsed: true
 };
 
-var layers = L.control.layers(basemap, labels, settingsControl).addTo(map)
+var overlayControl = L.control.layers(basemap, null, settingsControl).addTo(map)
+overlayControl.addTo(map);
 
 //build map
 map.addLayer(topoMap);
-
-
 
 //set opening view
 map.setView([-41.29, 175.4], 6);
