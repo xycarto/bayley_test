@@ -128,5 +128,3 @@ function getLoadJSON () {$.getJSON(urlCoromandel, function(data){
 
 getLoadJSON();
 
-  //overlayControl.addOverlay(jsonMap, "coro", settingsControl)
-
