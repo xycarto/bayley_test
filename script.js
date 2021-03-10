@@ -77,24 +77,6 @@ var coromandelBaseStyle = {
 
 var urlCoromandel = 'https://xycarto.github.io/bayley_test/geoJSON/coromandel.geojson';
 
-/*function createOverlayCoro(data, layerName, coromandelBaseStyle) {
-
-    var overlayA = L.Proj.geoJson(data, 
-      coromandelBaseStyle,
-      {
-        onEachFeature: function (feature, layer) {
-        layer.bindTooltip(feature.properties.name);
-        }
-      }
-    ).addTo(map)
-    //overlayA.addTo(map).bindTooltip("NAME");
-    //var center = overlayA.getBounds().getCenter();
-    //console.log(center);
-    overlayControl.addOverlay(overlayA, layerName, settingsControl) // Add the layer to the Layer Control.
-};*/
-
-
-
 //set
 var topoMap = new L.TileLayer(topoMap_urlTemplate, settings);
 
@@ -127,12 +109,6 @@ var overlayControl = L.control.layers(basemap, null, null).addTo(map);
 
 var foo = '<span><span class="legend-at"></span>Labels</span>'
 overlayControl.addOverlay(topoMapLabel, foo, settingsControl); 
-
-//load and add json
-/*var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
-$.getJSON(urlCoromandel, function (data) { 
-    createOverlayCoro(data, legenditemA, coromandelBaseStyle)
-});*/
 
 // loading GeoJSON file - Here my html and usa_adm.geojson file resides in same folder
 function getLoadJSON () {$.getJSON(urlCoromandel, function(data){
