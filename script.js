@@ -45,8 +45,17 @@ var settings = {
     '<a href="http://www.linz.govt.nz">Sourced from LINZ. CC-BY 4.0</a>' //Simple attribution for linz
 };
 
+var settingsPane = {
+  tms: true,
+  maxZoom: 11,
+  continuousWorld: true,
+  pane: 'labels',
+  attribution:
+    '<a href="http://www.linz.govt.nz">Sourced from LINZ. CC-BY 4.0</a>' //Simple attribution for linz
+};
+
 //set map and projection
-var map = new L.Map("map", {
+var map = new L.map('map', {
   crs: crs,
   continuousWorld: true,
   worldCopyJump: false,
@@ -55,37 +64,41 @@ var map = new L.Map("map", {
 
 
 //geoJSON
+
 var coromandelBaseStyle = {
     fillColor: "#cc3366",
-    weight: 0.5,
-    border: "2px dashed black",
+    //stroke: 6.0,
+    weight: 0.75,
+    //border: "2px dashed black",
     opacity: 1,
     color: '#dddddd',
-    fillOpacity: 0.2
+    fillOpacity: 0.4
   }
 
 var urlCoromandel = 'https://xycarto.github.io/bayley_test/geoJSON/coromandel.geojson';
 
-function createOverlayCoro(data, layerName, coromandelBaseStyle) {
-    var overlayA = L.Proj.geoJson(data, coromandelBaseStyle,{
-      onEachFeature: function (feature, layer) {
-        return _layers._leaflet_id; 
-      }
-    });
-    // Add the data to the map
-    overlayControl.addOverlay(overlayA, layerName, settingsControl) // Add the layer to the Layer Control.
+/*function createOverlayCoro(data, layerName, coromandelBaseStyle) {
 
-    //var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
-    //Load Available Now JSON into map
-    //$.getJSON(urlCoromandel, function (data) { 
-       //createOverlayCoro(data, legenditemA, coromandelBaseStyle)
-        //})
-    };
+    var overlayA = L.Proj.geoJson(data, 
+      coromandelBaseStyle,
+      {
+        onEachFeature: function (feature, layer) {
+        layer.bindTooltip(feature.properties.name);
+        }
+      }
+    ).addTo(map)
+    //overlayA.addTo(map).bindTooltip("NAME");
+    //var center = overlayA.getBounds().getCenter();
+    //console.log(center);
+    overlayControl.addOverlay(overlayA, layerName, settingsControl) // Add the layer to the Layer Control.
+};*/
+
+
 
 //set
 var topoMap = new L.TileLayer(topoMap_urlTemplate, settings);
 
-var topoMapLabel = new L.TileLayer(topoMapLabel_urlTemplate, settings);
+var topoMapLabel = new L.TileLayer(topoMapLabel_urlTemplate, settingsPane);
 
 var basemap = {
     "Base Map": topoMap,
@@ -99,18 +112,45 @@ var settingsControl = {
     collapsed: true
 };
 
-var overlayControl = L.control.layers(basemap, labels, settingsControl).addTo(map);
-//overlayControl.addTo(map);
-
 
 //build map
 map.addLayer(topoMap);
+map.createPane('labels');
+map.getPane('labels').style.zIndex = 650;
 
 //set opening view
 map.setView([-41.29, 175.4], 6);
 
+var overlayControl = L.control.layers(basemap, null, null).addTo(map);
+//var overlayControl = L.control.layers(basemap, labels, settingsControl).addTo(map);
+//overlayControl.addTo(map);
+
+var foo = '<span><span class="legend-at"></span>Labels</span>'
+overlayControl.addOverlay(topoMapLabel, foo, settingsControl); 
+
 //load and add json
-var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
+/*var legenditemA = '<span><span class="legend-at"></span>Coromandel</span>'
 $.getJSON(urlCoromandel, function (data) { 
     createOverlayCoro(data, legenditemA, coromandelBaseStyle)
-        });
+});*/
+
+// loading GeoJSON file - Here my html and usa_adm.geojson file resides in same folder
+function getLoadJSON () {$.getJSON(urlCoromandel, function(data){
+  var overLay = L.Proj.geoJson(data,
+    {
+      style: coromandelBaseStyle,
+      onEachFeature: function (feature, layer) {
+        layer.bindTooltip(feature.properties.name, {permanent: true, direction: 'center'});
+        var center = layer.getBounds().getCenter();
+        //var marker = new L.marker(center, { opacity: 0.01 }); //opacity may be set to zero
+        //marker.bindTooltip("My Label", {permanent: true, className: "my-label", offset: [0, 0] });
+      }
+    });
+    overlayControl.addOverlay(overLay, "Coromandel", settingsControl)
+  });
+}
+
+getLoadJSON();
+
+  //overlayControl.addOverlay(jsonMap, "coro", settingsControl)
+
