@@ -54,6 +54,15 @@ var settingsPane = {
     '<a href="http://www.linz.govt.nz">Sourced from LINZ. CC-BY 4.0</a>' //Simple attribution for linz
 };
 
+var settingsOpenPane = {
+  tms: true,
+  maxZoom: 11,
+  continuousWorld: true,
+  pane: 'open',
+  attribution:
+    '<a href="http://www.linz.govt.nz">Sourced from LINZ. CC-BY 4.0</a>' //Simple attribution for linz
+};
+
 //set map and projection
 var map = new L.map('map', {
   crs: crs,
@@ -68,11 +77,11 @@ var map = new L.map('map', {
 var territoryBaseStyle = {
     fillColor: "#d28164",
     //stroke: 6.0,
-    weight: 0.75,
+    weight: 1.5,
     //border: "2px dashed black",
     opacity: 1,
     color: '#d28164',
-    fillOpacity: 0.4
+    fillOpacity: 0.2
   }
 
   var territoryTwoBaseStyle = {
@@ -98,11 +107,11 @@ var territoryBaseStyle = {
   var openBaseStyle = {
     fillColor: "#306a76",
     //stroke: 6.0,
-    weight: 0.75,
+    weight: 1.5,
     //border: "2px dashed black",
     opacity: 1,
     color: '#306a76',
-    fillOpacity: 0.4
+    fillOpacity: 0.2
   }
 
   var rolloverPoly = {
@@ -146,6 +155,8 @@ var settingsControl = {
 map.addLayer(topoMap);
 map.createPane('labels');
 map.getPane('labels').style.zIndex = 650;
+map.createPane('open');
+map.getPane('open').style.zIndex = 600;
 
 //set opening view
 map.setView([-46.4, 168.35], 6);
@@ -227,12 +238,12 @@ function getLoadJSON () {
           
 
 
-          overLay.on('mouseover', function(e){
+          /*overLay.on('mouseover', function(e){
             e.layer.setStyle(rolloverPoly)
           })
           overLay.on('mouseout', function(e){
             e.layer.setStyle(territoryBaseStyle)
-          })
+          })*/
         });
 
         /*$.getJSON(urlGore, function(data){
@@ -253,6 +264,7 @@ function getLoadJSON () {
             var overLay = L.Proj.geoJson(data,
               {
                 style: openBaseStyle,
+                pane: 'open',
                 onEachFeature: function (feature, layer) {
                   layer.bindTooltip(feature.properties.name, {permanent: true, direction: 'center'});
                   var center = layer.getBounds().getCenter();
@@ -275,12 +287,12 @@ function getLoadJSON () {
                 
       
       
-                overLay.on('mouseover', function(e){
+                /*overLay.on('mouseover', function(e){
                   e.layer.setStyle(rolloverPoly)
                 })
                 overLay.on('mouseout', function(e){
                   e.layer.setStyle(openBaseStyle)
-                })
+                })*/
             });
 
 
