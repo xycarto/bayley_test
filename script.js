@@ -153,6 +153,7 @@ var settingsControl = {
 
 //build map
 map.addLayer(topoMap);
+map.addLayer(topoMapLabel);
 map.createPane('labels');
 map.getPane('labels').style.zIndex = 650;
 map.createPane('open');
