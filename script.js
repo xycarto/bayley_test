@@ -200,7 +200,7 @@ function getLoadJSON () {
           {
             style: territoryBaseStyle,
             onEachFeature: function (feature, layer) {
-              layer.bindTooltip(feature.properties.name + " Rural", {permanent: true, direction: 'center'});
+              layer.bindTooltip(feature.properties.name, {permanent: true, direction: 'center'});
               var center = layer.getBounds().getCenter();
               //var marker = new L.marker(center, { opacity: 0.01 }); //opacity may be set to zero
               //marker.bindTooltip("My Label", {permanent: true, className: "my-label", offset: [0, 0] });
@@ -209,6 +209,7 @@ function getLoadJSON () {
           overlayControl.addOverlay(overLay, "Southland", settingsControl)
 
           overLay.on('click', function(e){
+          var territoryAdmin = '<div class="popUpText">Name: ' + e.layer.feature.properties.name + '</div>';
           var territoryAdmin = '<div class="popUpText">Territory Admin: ' + e.layer.feature.properties.territoryAdmin + '</div>';
           var details = '<div class="popUpText">Details: ' + e.layer.feature.properties.details + '</div>';
           var area = '<div class="popUpText">Area: ' + e.layer.feature.properties.area + '</div>';
