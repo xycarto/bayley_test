@@ -147,7 +147,7 @@ var labels = {
 };
 
 var settingsControl = {
-    collapsed: true
+    collapsed: false
 };
 
 
@@ -162,7 +162,7 @@ map.getPane('open').style.zIndex = 600;
 //set opening view
 map.setView([-46.4, 168.35], 6);
 
-var overlayControl = L.control.layers(basemap, null, null).addTo(map);
+var overlayControl = L.control.layers(basemap, null, settingsControl).addTo(map);
 //var overlayControl = L.control.layers(basemap, labels, settingsControl).addTo(map);
 //overlayControl.addTo(map);
 
