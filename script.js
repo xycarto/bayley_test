@@ -209,12 +209,12 @@ function getLoadJSON () {
           overlayControl.addOverlay(overLay, "Southland", settingsControl)
 
           overLay.on('click', function(e){
-          var territoryAdmin = '<div class="popUpText">Name: ' + e.layer.feature.properties.name + '</div>';
+          var name = '<div class="popUpText">Name: ' + e.layer.feature.properties.name + '</div>';
           var territoryAdmin = '<div class="popUpText">Territory Admin: ' + e.layer.feature.properties.territoryAdmin + '</div>';
           var details = '<div class="popUpText">Details: ' + e.layer.feature.properties.details + '</div>';
           var area = '<div class="popUpText">Area: ' + e.layer.feature.properties.area + '</div>';
           L.popup()
-            .setContent('<div class="popupWrapper">'+ territoryAdmin + details + area +'</div>')
+            .setContent('<div class="popupWrapper">'+name + territoryAdmin + details + area +'</div>')
             .setLatLng(e.latlng)
             .openOn(map);
           });
@@ -255,6 +255,26 @@ function getLoadJSON () {
                 }
               });
               overlayControl.addOverlay(overLay, "Open Territory", settingsControl)
+
+              overLay.on('click', function(e){
+                var name = '<div class="popUpText">Name: ' + e.layer.feature.properties.name + '</div>';
+                var territoryAdmin = '<div class="popUpText">Territory Admin: ' + e.layer.feature.properties.territoryAdmin + '</div>';
+                var details = '<div class="popUpText">Details: ' + e.layer.feature.properties.details + '</div>';
+                var area = '<div class="popUpText">Area: ' + e.layer.feature.properties.area + '</div>';
+                L.popup()
+                  .setContent('<div class="popupWrapper">'+ name + territoryAdmin + details + area +'</div>')
+                  .setLatLng(e.latlng)
+                  .openOn(map);
+                });
+                
+      
+      
+                overLay.on('mouseover', function(e){
+                  e.layer.setStyle(rolloverPoly)
+                })
+                overLay.on('mouseout', function(e){
+                  e.layer.setStyle(openBaseStyle)
+                })
             });
 
 
