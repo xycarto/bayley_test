@@ -207,6 +207,24 @@ function getLoadJSON () {
             }
           });
           overlayControl.addOverlay(overLay, "Southland", settingsControl)
+
+          overLay.on('click', function(e){
+          var territoryAdmin = '<div class="popUpText">' + e.layer.feature.properties.territoryAdmin + '</div>';
+          var details = '<div class="popUpText">Details:' + e.layer.feature.properties.details + '</div>';
+          L.popup()
+            .setContent('<div class="popupWrapper">'+ territoryAdmin + details + '</div>')
+            .setLatLng(e.latlng)
+            .openOn(map);
+          });
+          
+
+
+          overLay.on('mouseover', function(e){
+            e.layer.setStyle(rolloverPoly)
+          })
+          overLay.on('mouseout', function(e){
+            e.layer.setStyle(territoryBaseStyle)
+          })
         });
 
         $.getJSON(urlGore, function(data){
@@ -236,7 +254,18 @@ function getLoadJSON () {
               });
               overlayControl.addOverlay(overLay, "Open Territory", settingsControl)
             });
+
+
+            
 }
+
+var rolloverPoly = {
+  fillColor: "yellow",
+  color: 'white',
+  fillOpacity: 0.7
+}
+
+
 
 getLoadJSON();
 
