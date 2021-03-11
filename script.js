@@ -209,10 +209,11 @@ function getLoadJSON () {
           overlayControl.addOverlay(overLay, "Southland", settingsControl)
 
           overLay.on('click', function(e){
-          var territoryAdmin = '<div class="popUpText">' + e.layer.feature.properties.territoryAdmin + '</div>';
-          var details = '<div class="popUpText">Details:' + e.layer.feature.properties.details + '</div>';
+          var territoryAdmin = '<div class="popUpText">Territory Admin: ' + e.layer.feature.properties.territoryAdmin + '</div>';
+          var details = '<div class="popUpText">Details: ' + e.layer.feature.properties.details + '</div>';
+          var area = '<div class="popUpText">Area: ' + e.layer.feature.properties.area + '</div>';
           L.popup()
-            .setContent('<div class="popupWrapper">'+ territoryAdmin + details + '</div>')
+            .setContent('<div class="popupWrapper">'+ territoryAdmin + details + area +'</div>')
             .setLatLng(e.latlng)
             .openOn(map);
           });
