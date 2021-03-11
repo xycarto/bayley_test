@@ -110,7 +110,7 @@ var overlayControl = L.control.layers(basemap, null, null).addTo(map);
 var foo = '<span><span class="legend-at"></span>Labels</span>'
 overlayControl.addOverlay(topoMapLabel, foo, settingsControl); 
 
-// loading GeoJSON file - Here my html and usa_adm.geojson file resides in same folder
+// loading GeoJSON file
 function getLoadJSON () {$.getJSON(urlCoromandel, function(data){
   var overLay = L.Proj.geoJson(data,
     {
