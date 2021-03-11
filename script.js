@@ -65,17 +65,58 @@ var map = new L.map('map', {
 
 //geoJSON
 
-var coromandelBaseStyle = {
-    fillColor: "#cc3366",
+var territoryBaseStyle = {
+    fillColor: "#d28164",
     //stroke: 6.0,
     weight: 0.75,
     //border: "2px dashed black",
     opacity: 1,
-    color: '#dddddd',
+    color: '#d28164',
     fillOpacity: 0.4
   }
 
+  var territoryTwoBaseStyle = {
+    fillColor: "#e9b676",
+    //stroke: 6.0,
+    weight: 0.75,
+    //border: "2px dashed black",
+    opacity: 1,
+    color: '#e9b676',
+    fillOpacity: 0.4
+  }
+
+  var ruralBaseStyle = {
+    fillColor: "#845a76",
+    //stroke: 6.0,
+    weight: 0.75,
+    //border: "2px dashed black",
+    opacity: 1,
+    color: '#d845a76',
+    fillOpacity: 0.4
+  }
+
+  var openBaseStyle = {
+    fillColor: "#306a76",
+    //stroke: 6.0,
+    weight: 0.75,
+    //border: "2px dashed black",
+    opacity: 1,
+    color: '#306a76',
+    fillOpacity: 0.4
+  }
+
+
 var urlCoromandel = 'https://xycarto.github.io/bayley_test/geoJSON/coromandel.geojson';
+
+var urlQueenstown = 'https://xycarto.github.io/bayley_test/geoJSON/queenstown.geojson';
+
+var urlQueenstownRural = 'https://xycarto.github.io/bayley_test/geoJSON/queenstown_rural.geojson';
+
+var urlSouthland = 'https://xycarto.github.io/bayley_test/geoJSON/southland.geojson';
+
+var urlGore = 'https://xycarto.github.io/bayley_test/geoJSON/gore.geojson';
+
+var urlSouthlandOpen = 'https://xycarto.github.io/bayley_test/geoJSON/southland_open.geojson';
 
 //set
 var topoMap = new L.TileLayer(topoMap_urlTemplate, settings);
@@ -111,10 +152,11 @@ var foo = '<span><span class="legend-at"></span>Labels</span>'
 overlayControl.addOverlay(topoMapLabel, foo, settingsControl); 
 
 // loading GeoJSON file
-function getLoadJSON () {$.getJSON(urlCoromandel, function(data){
+function getLoadJSON () {
+  $.getJSON(urlCoromandel, function(data){
   var overLay = L.Proj.geoJson(data,
     {
-      style: coromandelBaseStyle,
+      style: territoryBaseStyle,
       onEachFeature: function (feature, layer) {
         layer.bindTooltip(feature.properties.name, {permanent: true, direction: 'center'});
         var center = layer.getBounds().getCenter();
@@ -124,6 +166,76 @@ function getLoadJSON () {$.getJSON(urlCoromandel, function(data){
     });
     overlayControl.addOverlay(overLay, "Coromandel", settingsControl)
   });
+
+  $.getJSON(urlQueenstown, function(data){
+    var overLay = L.Proj.geoJson(data,
+      {
+        style: territoryBaseStyle,
+        onEachFeature: function (feature, layer) {
+          layer.bindTooltip(feature.properties.name, {permanent: true, direction: 'center'});
+          var center = layer.getBounds().getCenter();
+          //var marker = new L.marker(center, { opacity: 0.01 }); //opacity may be set to zero
+          //marker.bindTooltip("My Label", {permanent: true, className: "my-label", offset: [0, 0] });
+        }
+      });
+      overlayControl.addOverlay(overLay, "Queenstown", settingsControl)
+    });
+
+    $.getJSON(urlQueenstownRural, function(data){
+      var overLay = L.Proj.geoJson(data,
+        {
+          style: ruralBaseStyle,
+          onEachFeature: function (feature, layer) {
+            layer.bindTooltip(feature.properties.name + " Rural", {permanent: true, direction: 'center'});
+            var center = layer.getBounds().getCenter();
+            //var marker = new L.marker(center, { opacity: 0.01 }); //opacity may be set to zero
+            //marker.bindTooltip("My Label", {permanent: true, className: "my-label", offset: [0, 0] });
+          }
+        });
+        overlayControl.addOverlay(overLay, "Queenstown Rural", settingsControl)
+      });
+
+      $.getJSON(urlSouthland, function(data){
+        var overLay = L.Proj.geoJson(data,
+          {
+            style: territoryBaseStyle,
+            onEachFeature: function (feature, layer) {
+              layer.bindTooltip(feature.properties.name + " Rural", {permanent: true, direction: 'center'});
+              var center = layer.getBounds().getCenter();
+              //var marker = new L.marker(center, { opacity: 0.01 }); //opacity may be set to zero
+              //marker.bindTooltip("My Label", {permanent: true, className: "my-label", offset: [0, 0] });
+            }
+          });
+          overlayControl.addOverlay(overLay, "Southland", settingsControl)
+        });
+
+        $.getJSON(urlGore, function(data){
+          var overLay = L.Proj.geoJson(data,
+            {
+              style: territoryTwoBaseStyle,
+              onEachFeature: function (feature, layer) {
+                layer.bindTooltip(feature.properties.name, {permanent: true, direction: 'center'});
+                var center = layer.getBounds().getCenter();
+                //var marker = new L.marker(center, { opacity: 0.01 }); //opacity may be set to zero
+                //marker.bindTooltip("My Label", {permanent: true, className: "my-label", offset: [0, 0] });
+              }
+            });
+            overlayControl.addOverlay(overLay, "Gore", settingsControl)
+          });
+
+          $.getJSON(urlSouthlandOpen, function(data){
+            var overLay = L.Proj.geoJson(data,
+              {
+                style: openBaseStyle,
+                onEachFeature: function (feature, layer) {
+                  layer.bindTooltip(feature.properties.name, {permanent: true, direction: 'center'});
+                  var center = layer.getBounds().getCenter();
+                  //var marker = new L.marker(center, { opacity: 0.01 }); //opacity may be set to zero
+                  //marker.bindTooltip("My Label", {permanent: true, className: "my-label", offset: [0, 0] });
+                }
+              });
+              overlayControl.addOverlay(overLay, "Open Territory", settingsControl)
+            });
 }
 
 getLoadJSON();
