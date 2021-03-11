@@ -105,6 +105,12 @@ var territoryBaseStyle = {
     fillOpacity: 0.4
   }
 
+  var rolloverPoly = {
+    fillColor: "yellow",
+    color: 'white',
+    fillOpacity: 0.7
+  }
+
 
 var urlCoromandel = 'https://xycarto.github.io/bayley_test/geoJSON/coromandel.geojson';
 
@@ -142,7 +148,7 @@ map.createPane('labels');
 map.getPane('labels').style.zIndex = 650;
 
 //set opening view
-map.setView([-41.29, 175.4], 6);
+map.setView([-46.4, 168.35], 6);
 
 var overlayControl = L.control.layers(basemap, null, null).addTo(map);
 //var overlayControl = L.control.layers(basemap, labels, settingsControl).addTo(map);
@@ -153,7 +159,7 @@ overlayControl.addOverlay(topoMapLabel, foo, settingsControl);
 
 // loading GeoJSON file
 function getLoadJSON () {
-  $.getJSON(urlCoromandel, function(data){
+  /*$.getJSON(urlCoromandel, function(data){
   var overLay = L.Proj.geoJson(data,
     {
       style: territoryBaseStyle,
@@ -165,9 +171,9 @@ function getLoadJSON () {
       }
     });
     overlayControl.addOverlay(overLay, "Coromandel", settingsControl)
-  });
+  });*/
 
-  $.getJSON(urlQueenstown, function(data){
+  /*$.getJSON(urlQueenstown, function(data){
     var overLay = L.Proj.geoJson(data,
       {
         style: territoryBaseStyle,
@@ -179,9 +185,9 @@ function getLoadJSON () {
         }
       });
       overlayControl.addOverlay(overLay, "Queenstown", settingsControl)
-    });
+    });*/
 
-    $.getJSON(urlQueenstownRural, function(data){
+    /*$.getJSON(urlQueenstownRural, function(data){
       var overLay = L.Proj.geoJson(data,
         {
           style: ruralBaseStyle,
@@ -193,7 +199,7 @@ function getLoadJSON () {
           }
         });
         overlayControl.addOverlay(overLay, "Queenstown Rural", settingsControl)
-      });
+      });*/
 
       $.getJSON(urlSouthland, function(data){
         var overLay = L.Proj.geoJson(data,
@@ -229,7 +235,7 @@ function getLoadJSON () {
           })
         });
 
-        $.getJSON(urlGore, function(data){
+        /*$.getJSON(urlGore, function(data){
           var overLay = L.Proj.geoJson(data,
             {
               style: territoryTwoBaseStyle,
@@ -241,7 +247,7 @@ function getLoadJSON () {
               }
             });
             overlayControl.addOverlay(overLay, "Gore", settingsControl)
-          });
+          });*/
 
           $.getJSON(urlSouthlandOpen, function(data){
             var overLay = L.Proj.geoJson(data,
@@ -280,14 +286,6 @@ function getLoadJSON () {
 
             
 }
-
-var rolloverPoly = {
-  fillColor: "yellow",
-  color: 'white',
-  fillOpacity: 0.7
-}
-
-
 
 getLoadJSON();
 
